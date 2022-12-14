@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/v1/tasks")
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class TaskController {
     private final TaskMapper taskMapper;
 
     @GetMapping
-    public ResponseEntity<List<TaskDto>> getTasks() throws TaskNotFoundException {
+    public ResponseEntity<List<TaskDto>> getTasks() {
         List<Task> tasks = service.getAllTasks();
         return ResponseEntity.ok(taskMapper.mapToTaskDtoList(tasks));
     }
@@ -45,6 +46,7 @@ public class TaskController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createTask(@RequestBody TaskDto taskDto) {
         Task task = taskMapper.mapToTask(taskDto);
+        service.saveTask(task);
         return ResponseEntity.ok().build();
     }
 }
