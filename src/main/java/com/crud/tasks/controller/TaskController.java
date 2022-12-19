@@ -2,6 +2,7 @@ package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
+import com.crud.tasks.exceptions.TaskNotFoundException;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import lombok.RequiredArgsConstructor;
@@ -37,10 +38,10 @@ public class TaskController {
     }
 
     @PutMapping
-    public ResponseEntity<TaskDto> updateTask(@RequestBody TaskDto taskDto) {
+    public ResponseEntity<TaskDto> updateTask(@RequestBody TaskDto taskDto) throws TaskNotFoundException {
         Task task = taskMapper.mapToTask(taskDto);
-        Task savedTask = service.saveTask(task);
-        return ResponseEntity.ok(taskMapper.mapToTaskDto(savedTask));
+        Task updatedTask = service.updateTask(task);
+        return ResponseEntity.ok(taskMapper.mapToTaskDto(updatedTask));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
