@@ -26,6 +26,7 @@ out/
 !**/src/test/**/out/
 **/out/
 **/build/
+.gradle
 
 ### NetBeans ###
 /nbproject/private/
@@ -36,4 +37,3 @@ out/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/application.properties
